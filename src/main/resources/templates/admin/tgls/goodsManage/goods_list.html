@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+		<!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+		<meta name="renderer" content="webkit">
+		<!--国产浏览器高速模式-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="穷在闹市" />
+		<!-- 作者 -->
+		<meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+		<!-- 定义页面的最新版本 -->
+		<meta name="description" content="网站简介" />
+		<!-- 网站简介 -->
+		<meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+		<title>超市联盟商品列表</title>
+
+		<!-- 公共样式 开始 -->
+		<link rel="stylesheet" type="text/css" href="admin/css/base.css">
+		<link rel="stylesheet" type="text/css" href="admin/css/iconfont.css">
+		<script type="text/javascript" src="admin/framework/jquery-1.11.3.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="admin/layui/css/layui.css">
+		<script type="text/javascript" src="admin/layui/layui.js"></script>
+		<!-- 滚动条插件 -->
+		<link rel="stylesheet" type="text/css" href="admin/css/jquery.mCustomScrollbar.css">
+		<script src="admin/framework/jquery-ui-1.10.4.min.js"></script>
+		<script src="admin/framework/jquery.mousewheel.min.js"></script>
+		<script src="admin/framework/jquery.mCustomScrollbar.min.js"></script>
+		<script src="admin/framework/cframe.js"></script><!-- 仅供所有子页面使用 -->
+		<!-- 公共样式 结束 -->
+		
+		<style>
+			.layui-table img {
+			    max-width: none;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="cBody">
+			<div class="console">
+
+
+				<script>
+					layui.use('form', function() {
+						var form = layui.form;
+				
+						//监听提交
+						form.on('submit(formDemo)', function(data) {
+							layer.msg(JSON.stringify(data.field));
+							return false;
+						});
+					});
+				</script>
+			</div>
+			
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>商品名称</th>
+						<th>商品图片</th>
+						<th>参考价格</th>
+						<th>条形码编号</th>
+						<th>商品分类</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody th:each="goo : ${good_list}">
+					<tr>
+						<td th:text="${goo.getName()}"></td>
+						<td><img th:src="${goo.getImg_url()}" width="20" height="20" onmouseenter="imgBig(this)" onmouseleave="imgSmall(this)"/></td>
+						<td th:text="${goo.getPrice()}"></td>
+						<td th:text="${goo.getCategory_id()}"></td>
+						<td th:text="${goo.getGroup_class()}"></td>
+						<td>
+							<button class="layui-btn layui-btn-xs" th:href="@{'/delete/'+${goo.getId()}}">修改</button>
+							<button class="layui-btn layui-btn-xs" th:href="@{'/delete/'+${goo.getId()}}">删除</button>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+			
+			<!-- layUI 分页模块 -->
+			<div id="pages"></div>
+			<script>
+				layui.use('laypage', function() {
+					var laypage = layui.laypage;
+				
+					//总页数大于页码总数
+					laypage.render({
+					    elem: 'pages'
+					    ,count: 100
+					    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+					    ,jump: function(obj){
+					      console.log(obj)
+					    }
+					});
+				});
+				//修改按钮
+				function updateBut(){
+					layui.use('layer', function() {
+						var layer = layui.layer;
+							
+						//iframe层-父子操作
+						layer.open({
+							type: 2,
+							area: ['70%', '60%'],
+							fixed: false, //不固定
+							maxmin: true,
+							content: 'goods_update.html'
+						});
+					});
+					
+				}
+				//解决框架的问题"overflow","hidden"
+				var setCBodyOverflowINDEX = 0; 
+				function setCBodyOverflow(layero, index, layer){
+				    console.log(index)
+				}
+			</script>
+		</div>
+	</body>
+
+</html>

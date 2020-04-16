@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="super/css/pintuer.css">
+    <link rel="stylesheet" href="super/css/admin.css">
+    <script src="super/js/jquery.js"></script>
+    <script src="super/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+    <div class="body-content">
+
+        扫描为：<span th:text="${category.getCategory_id()}"></span>
+
+
+            <table class="table table-hover text-center" border="red">
+                <volist name="list" id="vo">
+                    <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>商品图片</th>
+                        <th>参考价格</th>
+                        <th>条形码编号</th>
+                        <th>商品分类</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr>
+                        <td th:text="${category.getName()}"></td>
+                        <td><img th:src="${category.getImg_url()}" width="20" height="20" onmouseenter="imgBig(this)" onmouseleave="imgSmall(this)"/></td>
+                        <td th:text="${category.getPrice()}"></td>
+                        <td th:text="${category.getCategory_id()}"></td>
+                        <td th:text="${category.getGroup_class()}"></td>
+                        <td>
+                            <a class="layui-btn layui-btn-xs"  th:href="@{'/super/add/'+${category.getCategory_id()}}">添加</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                </volist>
+            </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

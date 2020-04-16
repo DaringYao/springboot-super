@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:text-align="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script src="login/js/kit.js"></script>
+		<!--[if IE]>
+        <script src="login/js/ieFix.js"></script>
+        <![endif]-->
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-30210234-1']);
+			_gaq.push(['_trackPageview']);
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
+		<script src="login/js/dom.js"></script>
+		<script src="login/js/form.js"></script>
+		<link rel="stylesheet" href="login/css/css.css" />
+		<link rel="stylesheet" href="login/css/login.css" />
+		<link rel="stylesheet" href="login/css/validator.css" />
+		<!--validator-->
+		<script src="login/js/validator.js"></script>
+		<script src="login/js/autowired.validator.js"></script>
+		<style>
+			table td {
+				font-size: 14px;
+			}
+			label {
+				cursor: pointer;
+				margin-right: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>欢迎来到超市联盟，请登录</h1>
+		还没有账户！ <a th:href="@{/userRegister}" style="color: darkred">注册</a>
+		<div  id="regist-main">
+
+			<p align="center" style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"><p/>
+			<form id="registForm" action="/login" method="post" >
+				<ol>
+					<li>
+						<label for="UserName">用户名：
+						<span class="kitjs-validator" for="@UserName" rules="[{notNull:true, message:'用户名不能为空'}]"></span>
+						</label>
+						<span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+						<input id="UserName" name="UserName" type="text" value="">
+					</li>
+					
+					<li>
+						<label for="Password">密码：
+						<span class="kitjs-validator" for="@Password" rules="[{notNull:true, message:'密码不能为空'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
+						</label>
+						<span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+						<input id="Password" name="Password" type="password">
+					</li>
+					
+				</ol>
+				<div class="registError"></div>
+				<input type="submit" value="登陆" class="btn-submit">
+
+			</form>
+		</div>
+		<a th:href="@{/super_lo}">超市</a>
+<p align="center">适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. </p>
+<p align="center">来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+	</body>
+</html>

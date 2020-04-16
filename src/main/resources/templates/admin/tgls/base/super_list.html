@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+
+		<title>超市联盟超市列表</title>
+
+		<!-- 公共样式 开始 -->
+		<link rel="stylesheet" type="text/css" href="admin/css/base.css">
+		<link rel="stylesheet" type="text/css" href="admin/css/iconfont.css">
+		<script type="text/javascript" src="admin/framework/jquery-1.11.3.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="admin/layui/css/layui.css">
+		<script type="text/javascript" src="admin/layui/layui.js"></script>
+		<!-- 滚动条插件 -->
+		<link rel="stylesheet" type="text/css" href="admin/css/jquery.mCustomScrollbar.css">
+		<script src="admin/framework/jquery-ui-1.10.4.min.js"></script>
+		<script src="admin/framework/jquery.mousewheel.min.js"></script>
+		<script src="admin/framework/jquery.mCustomScrollbar.min.js"></script>
+		<script src="admin/framework/cframe.js"></script><!-- 仅供所有子页面使用 -->
+		<!-- 公共样式 结束 -->
+		
+		<script src="admin/js/customList.js"></script>
+
+	</head>
+
+	<body>
+		<div class="cBody">
+			<form class="layui-form" action="">
+				<div class="console">
+					<div class="layui-form-item">
+						<a class="layui-btn" onclick="addCustomList('customList')">新增</a>
+					</div>
+				</div>
+				
+				<table id="customList" class="layui-table">
+					<thead>
+						<tr>
+							<th>用户名</th>
+							<th>电话号码</th>
+							<th>营业执照编号</th>
+							<th>地址</th>
+							<th>经营类别</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody th:each="sup : ${super_list}">
+						<tr>
+							<td th:text="${sup.getUserName()}"></td>
+							<td th:text="${sup.getPhone()}"></td>
+							<td th:text="${sup.getConding()}"></td>
+							<td th:text="${sup.getAddress()}"></td>
+							<td th:text="${sup.getShop_class()}"></td>
+
+							<td>
+								<a class="layui-btn layui-btn-xs" th:href="@{'/delete/'+${sup.getId()}}">删除</a>
+							</td>
+						</tr>
+
+						
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</body>
+
+</html>
