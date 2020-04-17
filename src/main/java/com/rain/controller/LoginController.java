@@ -60,19 +60,31 @@ public class LoginController {
     public String userNameRegister(@RequestParam("username") String username,
                                    @RequestParam("password") String password,
                                    @RequestParam("phone") String phone,
-                                   @RequestParam("email") String email
+                                   @RequestParam("email") String email,
+                                   @RequestParam("address")String address,
+                                   Model model
                                    ){
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setPhone(phone);
         user.setEmail(email);
-        int i = userService.addUser(user);
-        System.out.println(i);
-        if (i==1){
-            return "success";
+        int i;
+        try {
+            i = userService.addUser(user);
+            if (i==1){
+                model.addAttribute("msg","注册成功，请登录");
+                return "login";
+            }
+
+
+        }catch (Exception e){
+            model.addAttribute("remsg","您的电话或账户已经被注册");
+            return "register";
         }
-        return "login";
+
+        return "";
+
     }
     @RequestMapping("/super_lo")
     public String shopLogin(){

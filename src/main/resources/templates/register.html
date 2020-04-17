@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:text-align="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<script src="login/js/kit.js"></script>
@@ -41,6 +41,7 @@
 	<body>
 		<h1>欢迎来到超市联盟，请注册</h1>
 		<div id="regist-main">
+			<p align="center" style="color: red" th:text="${remsg}" th:if="${not #strings.isEmpty(remsg)}">
 			<form id="registForm" action="/register" method="post" onsubmit="alert('验证通过，可以提交！');return true;">
 				<ol>
 					<li>
@@ -65,19 +66,20 @@
 						<input id="phone" name="phone" type="text" value="">
 					</li>
 					<li>
+						<label >收货地址：
+							<span class="kitjs-validator" for="@address" rules="[{notNull:true, message:'地址不能为空'},{minLength:'6',message:'地址精确到门牌号'}]"></span>
+						</label>
+						<span class="field-validation-valid" data-valmsg-for="address" data-valmsg-replace="true"></span>
+						<input id="address" name="address" type="text" value="">
+					</li>
+					<li>
 						<label for="Password">密码：
 						<span class="kitjs-validator" for="@Password" rules="[{notNull:true, message:'密码不能为空'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
 						</label>
 						<span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-						<input id="Password" name="password" type="password">
+						<input id="Password" name="password" type="text">
 					</li>
-					<li>
-						<label for="ConfirmPassword">重新输入密码：
-						<span class="kitjs-validator" for="@ConfirmPassword" rules="[{notNull:true, message:'重新输入密码不能为空'},{equalWith:'@Password',message:'两次输入密码必须一致'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
-						</label>
-						<span class="field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
-						<input id="ConfirmPassword" name="ConfirmPassword" type="password">
-					</li>
+
 				</ol>
 				<div class="registError"></div>
 				<input type="submit" value="注册" class="btn-submit">

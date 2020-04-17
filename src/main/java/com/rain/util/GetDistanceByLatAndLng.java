@@ -1,8 +1,11 @@
 package com.rain.util;
+
+import java.io.IOException;
+
 //根据经纬度计算距离
 public class GetDistanceByLatAndLng {
 
-    public static void distance() {
+    public  String distance(String adress1,String adress2) throws IOException {
         /**
          * 甘肃省定西市渭源县清源镇
          *lng : 104.194926
@@ -19,9 +22,14 @@ public class GetDistanceByLatAndLng {
          *
          * 测试正确
          */
-        double distanse = getDistance(35.172499, 104.194926, 39.926375, 116.449559);
+        GetLatAndLngByBaidu getLatAndLngByBaidu = new GetLatAndLngByBaidu();
+        Object[] coordinate1 = getLatAndLngByBaidu.getCoordinate(adress1);
+        Object[] coordinate2 = getLatAndLngByBaidu.getCoordinate(adress1);
+
+        double distanse = getDistance((Double) coordinate1[0], (Double) coordinate1[1], (Double) coordinate2[0], (Double) coordinate2[1]);
         String disStr = distanse+"km";
         System.out.println(disStr);
+        return disStr;
 
 
     }

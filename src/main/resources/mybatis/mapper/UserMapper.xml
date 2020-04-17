@@ -10,7 +10,7 @@
      select * from user where id = #{id}
     </select>
     <insert id="addUser" parameterType="User">
-     insert into user (username,password,phone,email) values (#{username},#{password},#{phone},#{email})
+     insert into user (username,password,phone,email,address) values (#{username},#{password},#{phone},#{email},#{address})
     </insert>
     <update id="updateUser" parameterType="User">
         update user set id==#{id},username=#{username},password=#{password},phone=#{phone},email=#{email}

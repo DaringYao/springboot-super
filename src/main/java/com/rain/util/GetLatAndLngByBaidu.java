@@ -154,7 +154,7 @@ public class GetLatAndLngByBaidu {
 
 
 
-    public static void nskcfnsjdk() throws IOException {
+
         /**
          * 甘肃省定西市渭源县清源镇
          *lng : 104.194926
@@ -166,16 +166,16 @@ public class GetLatAndLngByBaidu {
          * lng : 116.449559
          * lat : 39.926375
          */
-
+       /* public static void nskcfnsjdk(String adress) throws IOException {
         GetLatAndLngByBaidu getLatAndLngByBaidu = new GetLatAndLngByBaidu();
 
-        Object[] o = getLatAndLngByBaidu.getCoordinate("甘肃省定西市渭源县清源镇");
+        Object[] o = getLatAndLngByBaidu.getCoordinate(adress);
 
         System.out.println(o[0]);//经度
 
         System.out.println(o[1]);//纬度
 
-    }
+    }*/
 
 
 

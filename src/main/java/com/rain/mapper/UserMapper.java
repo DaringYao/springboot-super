@@ -22,6 +22,8 @@ import java.util.List;
 public interface UserMapper {
 
 
+    @Select("select address from user where username = #{username}")
+    User queryAddress(String username);
     List<User> queryUserList();
     User queryUserById(int id);
     @Insert("insert into user (username,password,phone,email) values (#{username},#{password},#{phone},#{email})")

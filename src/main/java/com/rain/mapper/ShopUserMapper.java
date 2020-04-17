@@ -19,6 +19,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ShopUserMapper {
+
+    @Select("select address from superUser where userName=#{userName}")
+    SuperUser queryAddress(String userName);
     @Select("select * from superUser")
     List<SuperUser> querySuperUserList();
     @Insert("insert superUser (userName, password, phone, conding, address, shop_class) VALUES (#{userName},#{password},#{phone},#{conding},#{address},#{shop_class})")
