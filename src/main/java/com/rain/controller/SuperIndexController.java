@@ -30,6 +30,13 @@ public class SuperIndexController {
     private SuperAndGoodsMapper superAndGoodsMapper;
     @Autowired
     private GoodsMapper goodsMapper;
+
+    /**
+     *
+     * @param session
+     * @param model
+     * @return
+     */
     @RequestMapping("/list")
     public String returnList(HttpSession session,
                              Model model){
@@ -45,11 +52,22 @@ public class SuperIndexController {
         model.addAttribute("super_list",super_list);
         return "super/list";
     }
+
+    /**
+     *
+     * @return
+     */
     @RequestMapping("/add")
     public String returnAdd(){
         return "super/add";
     }
 
+    /**
+     *
+     * @param category_id
+     * @param model
+     * @return
+     */
     @RequestMapping("/addGoodsquery001")
 
     public String addGoodsquery(@RequestParam("category_id") String category_id,

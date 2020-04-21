@@ -32,7 +32,7 @@ import java.net.URLConnection;
 
  */
 
-public class GetLatAndLngByBaidu {
+public class GetLatAndLngByBaidu{
 
 
 
@@ -48,7 +48,7 @@ public class GetLatAndLngByBaidu {
 
      */
 
-    public Object[] getCoordinate(String addr) throws IOException {
+    public Double[] getCoordinate(String addr) throws IOException {
 
         String lng = null;//经度
 
@@ -145,8 +145,12 @@ public class GetLatAndLngByBaidu {
             }
 
         }
+        Double[] doubles = new Double[2];
+        doubles[0] = Double.parseDouble(lng);
+        doubles[1] = Double.parseDouble(lat);
 
-        return new Object[]{lng,lat};
+
+        return doubles;
 
     }
 

@@ -23,10 +23,14 @@ public class GetDistanceByLatAndLng {
          * 测试正确
          */
         GetLatAndLngByBaidu getLatAndLngByBaidu = new GetLatAndLngByBaidu();
-        Object[] coordinate1 = getLatAndLngByBaidu.getCoordinate(adress1);
-        Object[] coordinate2 = getLatAndLngByBaidu.getCoordinate(adress1);
+        Double[] coordinate1 = getLatAndLngByBaidu.getCoordinate(adress1);
+        Double[] coordinate2 = getLatAndLngByBaidu.getCoordinate(adress2);
+        System.out.println(coordinate1[1]);
+        System.out.println(coordinate1[0]);
+        System.out.println(coordinate2[1]);
+        System.out.println(coordinate2[0]);
 
-        double distanse = getDistance((Double) coordinate1[0], (Double) coordinate1[1], (Double) coordinate2[0], (Double) coordinate2[1]);
+        double distanse = getDistance(coordinate1[0], coordinate1[1], coordinate2[0],  coordinate2[1]);
         String disStr = distanse+"km";
         System.out.println(disStr);
         return disStr;

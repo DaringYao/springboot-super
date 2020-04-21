@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>列表</title>
 <link href="cust/css/index.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript" src="cust/js/jquery-1.7.2.min.js"></script>
@@ -78,8 +79,12 @@
                         <div class="img"><a href="#"><img th:src="${book.getB()}"/></a></div>
                         <div class="tit1"><a href="#" th:text="${book.getA()}"></a></div>
                         <div class="tit2">
-                        	店铺：<span class="" th:text="${book.getC()}" th:bgcolor="red"></span>
-                            <p class="price2" th:text="${book.getD_a()}">现价：159.0</p>
+                        	店铺<span th:text="${book.getC()}" style="color: red"></span><br/>
+                            距您<span th:text="${book.getD()}" style="color: red"></span>
+                            <p class="price2" th:text="${book.getD_a()}"></p>
+                            <!--c：商铺名   e商品条形码-->
+                            <!--加入购物车请求地址为/add/goods/商铺名商品id-->
+                            <a th:href="@{'/add/goods/'+${book.getE()}+'.'+${book.getC()}}">加入购物车</a>
                         </div>
                     </li>
 
