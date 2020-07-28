@@ -2,6 +2,7 @@ package com.rain.mapper;
 
 import com.rain.pojo.All;
 import com.rain.pojo.Goods;
+import com.rain.pojo.ShowGoods;
 import com.rain.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,11 +22,18 @@ import java.util.List;
 @Mapper
 @Repository
 public interface GoodsMapper {
+
+    /*@Select("select *from goods where category_id = " +
+            "(select superandgoods.category_id from superAndGoods where super_name = #{super_name})")
+    Goods showDistanceAndGoods(String super_name);*/
     @Select("select * from goods")
     List<Goods> queryGoodsList();
 
     @Select("select * from goods where category_id=#{category_id}")
     Goods queryGoodsByCategory_id(String category_id);
+
+    @Select("select * from goods where category_id=#{category_id}")
+    List<Goods> queryGoodsListByCategory_id(String category_id);
 
 
 

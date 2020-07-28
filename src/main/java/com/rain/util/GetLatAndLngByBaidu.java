@@ -107,12 +107,14 @@ public class GetLatAndLngByBaidu{
                     if(count==5){
 
                         lng = (String)data.subSequence(data.indexOf(":")+1, data.indexOf(","));//经度
+                        System.out.println("=================================================="+lng);
 
                         count++;
 
                     }else if(count==6){
 
                         lat = data.substring(data.indexOf(":")+1);//纬度
+                        System.out.println("================================================="+lat);
 
                         count++;
 
@@ -146,8 +148,8 @@ public class GetLatAndLngByBaidu{
 
         }
         Double[] doubles = new Double[2];
-        doubles[0] = Double.parseDouble(lng);
-        doubles[1] = Double.parseDouble(lat);
+        doubles[0] = Double.valueOf(lng);
+        doubles[1] = Double.valueOf(lat);
 
 
         return doubles;

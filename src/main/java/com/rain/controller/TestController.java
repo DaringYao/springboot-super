@@ -22,7 +22,7 @@ public class TestController {
     @RequestMapping("/yl")
     public String testtoiao(){
 
-        return "admin/tgls/goodsManage/goods_list";
+        return "customer/art";
     }
     @RequestMapping("/yls")
     

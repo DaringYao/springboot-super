@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import java.util.List;
  * @since 2020/3/26 2:04
  */
 @Controller
-@RequestMapping("/super")
 public class SuperIndexController {
     @Autowired
     private SuperAndGoodsMapper superAndGoodsMapper;
@@ -32,56 +32,54 @@ public class SuperIndexController {
     private GoodsMapper goodsMapper;
 
     /**
-     *
      * @param session
      * @param model
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping("/super/List")
     public String returnList(HttpSession session,
-                             Model model){
+                             Model model) {
         String superloginmsg = (String) session.getAttribute("superloginmsg");
-        List<SuperAngGoods> super_nameToGoodsList = superAndGoodsMapper.getSuper_nameToGoodsList(superloginmsg);
+        List<SuperAngGoods> super_nameToGoodsList = superAndGoodsMapper.getCategory_idBysuper_name(superloginmsg);
         ArrayList<Goods> super_list = new ArrayList();
-        for (SuperAngGoods goodsss : super_nameToGoodsList){
+        for (SuperAngGoods goodsss : super_nameToGoodsList) {
             String category_id = goodsss.getCategory_id();
             Goods goodss = goodsMapper.queryGoodsByCategory_id(category_id);
             super_list.add(goodss);
         }
         System.out.println(super_list.get(1).getImg_url());
-        model.addAttribute("super_list",super_list);
+        model.addAttribute("super_list", super_list);
         return "super/list";
     }
 
     /**
-     *
      * @return
      */
-    @RequestMapping("/add")
-    public String returnAdd(){
+    @RequestMapping("/super/add")
+    public String returnAdd() {
         return "super/add";
     }
 
     /**
-     *
      * @param category_id
      * @param model
      * @return
      */
-    @RequestMapping("/addGoodsquery001")
+    @RequestMapping("/super/addGoodsquery001")
 
     public String addGoodsquery(@RequestParam("category_id") String category_id,
-                                Model model){
+                                Model model) {
         System.out.println(category_id);
 
         Goods queryGoodsByCategory_id = goodsMapper.queryGoodsByCategory_id(category_id);
-        model.addAttribute("category",queryGoodsByCategory_id);
+        model.addAttribute("category", queryGoodsByCategory_id);
         return "super/addqurey";
     }
-    @RequestMapping("/add/{Category_id}")
+
+    @RequestMapping("/super/add/{Category_id}")
     public String updateGoods(@PathVariable("Category_id") String category_id,
                               HttpSession session,
-                              Model model){
+                              Model model) {
         System.out.println(category_id);
         String super_name = (String) session.getAttribute("superloginmsg");
         System.out.println(super_name);
@@ -91,13 +89,31 @@ public class SuperIndexController {
         int i;
         try {
             i = superAndGoodsMapper.addGoods(superAngGoods);
-                model.addAttribute("super_add","商品已添加，继续添加");
-                return "super/add";
-        }catch (Exception e){
+            model.addAttribute("super_add", "商品已添加，继续添加");
+            return "super/add";
+        } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("super_add","商品已存在，无需重复添加");
+            model.addAttribute("super_add", "商品已存在，无需重复添加");
             return "super/add";
         }
 
     }
+    @RequestMapping("/super/delete/{category_id}")
+    public String deleteSuperAndGoods(@PathVariable("category_id") String category_id){
+        ModelAndView mv=new ModelAndView();
+        System.out.println(category_id);
+        int i;
+        try {
+
+            i= superAndGoodsMapper.deleteRow(category_id);
+            return "redirect：/super/list";
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return "error/404";
+        }
+
+
+    }
+
 }

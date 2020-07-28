@@ -18,7 +18,7 @@
             <div class="right">
             	<a class="a1" href="#">我的信息</a>
                 <a class="a2" href="#">我关注的店铺</a>
-                <a class="a3" href="#">购物车</a>
+                <a class="a3" th:href="@{/cartList}">购物车</a>
                 <a class="a5" href="#">收藏夹</a>
                 <a class="a1" href="#">商家支持</a>
                 <a class="a4" href="#">网站导航</a>
@@ -56,6 +56,7 @@
             </div>
         </div>
     </div>
+    <p align="center" style="color: red" th:text="${list}" th:if="${not #strings.isEmpty(list)}"><p/>
     <div class="main_visual">
         <div class="flicking_con">
             <div class="flicking_inner">
@@ -64,11 +65,13 @@
          	</div>
     	</div>
     </div>
-    <div class="contain">
-        <div class="content content1">
+    <div class="contain" >
+        <div class="content content1"th:each="book : ${books}">
+            店铺:<span th:text="${book.getSuper_name()}" style="color: red"></span><br/>
+            距您<span th:text="${book.getDistance()}" style="color: red"></span>
             <div class="bd list">
                 <ul>
-                    <li th:each="book : ${books}">
+                    <li th:each="book1 : ${book.getList()}">
 <!--
                 all.setA(goods.getName());
                 all.setB(goods.getImg_url());
@@ -76,15 +79,14 @@
                 all.setC(superName);
                 arrayList.add(all);
 -->
-                        <div class="img"><a href="#"><img th:src="${book.getB()}"/></a></div>
-                        <div class="tit1"><a href="#" th:text="${book.getA()}"></a></div>
+                        <div class="img"><a href="#"><img th:src="${book1.getImg_url()}"/></a></div>
+                        <div class="tit1"><a href="#" th:text="${book1.getName()}"></a></div>
                         <div class="tit2">
-                        	店铺<span th:text="${book.getC()}" style="color: red"></span><br/>
-                            距您<span th:text="${book.getD()}" style="color: red"></span>
-                            <p class="price2" th:text="${book.getD_a()}"></p>
+
+                            <p class="price2" th:text="${book1.getPrice()}"></p>
                             <!--c：商铺名   e商品条形码-->
                             <!--加入购物车请求地址为/add/goods/商铺名商品id-->
-                            <a th:href="@{'/add/goods/'+${book.getE()}+'.'+${book.getC()}}">加入购物车</a>
+                            <a th:href="@{'/add/goods/'+${book.getSuper_name()}+'/'+${book1.getCategory_id()}}">加入购物车</a>
                         </div>
                     </li>
 
